@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/react-typescript-todo-list/static/css/main.9cdc73b4.css",
+    "main.js": "/react-typescript-todo-list/static/js/main.bb6ed167.js",
+    "index.html": "/react-typescript-todo-list/index.html",
+    "main.9cdc73b4.css.map": "/react-typescript-todo-list/static/css/main.9cdc73b4.css.map",
+    "main.bb6ed167.js.map": "/react-typescript-todo-list/static/js/main.bb6ed167.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9cdc73b4.css",
+    "static/js/main.bb6ed167.js"
+  ]
+}
