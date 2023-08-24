@@ -3,12 +3,17 @@ import Button from "react-bootstrap/Button";
 import { ITodo } from "../types/ITodo";
 import { FC, MouseEvent, useRef } from "react";
 
-interface ICreateTodo {
-  addTodo: (task: ITodo) => void;
+interface IChangeTodo {
+  modificateList: (task: ITodo) => void;
+  showModal?: (count: number | null) => void;
   count: number;
 }
 
-export const CreateTodo: FC<ICreateTodo> = ({ addTodo, count }) => {
+export const ModificateTodos: FC<IChangeTodo> = ({
+  modificateList,
+  count,
+  showModal,
+}) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const createTodo = (e: MouseEvent<HTMLButtonElement>) => {
@@ -17,7 +22,8 @@ export const CreateTodo: FC<ICreateTodo> = ({ addTodo, count }) => {
       title: inputRef.current?.value || "unknown",
       id: count + 1,
     };
-    addTodo(task);
+    modificateList(task);
+    if (showModal) showModal(null);
   };
 
   return (

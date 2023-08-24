@@ -2,16 +2,16 @@ import { useEffect, useState } from "react";
 import { fetchTodos } from "./API/fetchTodos";
 import { ListTodo } from "./components/ListTodo";
 import { useFetching } from "./hooks/useFetching";
+import { ModalWindow } from "./components/UI/ModalWindow";
+import { ModificateTodos } from "./components/ModificateTodos";
 import { ITodo } from "./types/ITodo";
 import Spinner from "react-bootstrap/Spinner";
 import Container from "react-bootstrap/Container";
-import { CreateTodo } from "./components/CreateTodo";
-import { ModalWindow } from "./components/UI/ModalWindow";
-import { ChangeTodo } from "./components/ChangeTodo";
 
 export const App = () => {
   const [todos, setTodos] = useState<ITodo[]>([]);
   const [showModal, setShowModal] = useState(false);
+  const [countTodo, setCountTodo] = useState<number | null>(null);
 
   // get todos
   const [getTodos, isloading] = useFetching(async () => {
@@ -33,24 +33,35 @@ export const App = () => {
     setTodos([...todos, task]);
   };
 
-  // show modal
-  const showModalWindow = () => {
-    setShowModal(!showModal);
+  // change todo
+  const changeTodo = (task: ITodo) => {
+    if (countTodo) {
+      const changeTodos = [...todos];
+      changeTodos[countTodo - 1].title = task.title;
+      setTodos(changeTodos);
+    }
   };
 
-  const changeTodo = (task: ITodo) => {
-    const count = task.id;
-    console.log(count);
-    setTodos([...todos, (todos[count] = task)]);
+  // show modal
+  const showModalWindow = (count: number | null) => {
+    setShowModal(!showModal);
+    setCountTodo(count);
   };
 
   return (
     <Container fluid className="mt-3 text-center">
-      <ModalWindow show={showModal} setShow={showModalWindow}>
-        <ChangeTodo changeTodo={changeTodo} count={todos.length} />
+      <ModalWindow
+        show={showModal}
+        setShow={showModalWindow}
+        text="print new title"
+      >
+        <ModificateTodos
+          modificateList={changeTodo}
+          count={todos.length}
+          showModal={showModalWindow}
+        />
       </ModalWindow>
-
-      <CreateTodo addTodo={addTodo} count={todos.length} />
+      <ModificateTodos modificateList={addTodo} count={todos.length} />
 
       {isloading ? (
         <Spinner animation="border" variant="dark" />

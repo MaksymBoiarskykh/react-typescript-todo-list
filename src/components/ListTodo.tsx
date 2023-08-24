@@ -1,12 +1,12 @@
 import { FC } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import { ITodo } from "../types/ITodo";
-import { ItemTodo } from "./ItemTodo";
+import { ItemTodo } from "./UI/ItemTodo";
 
 interface IListTodo {
   todos: ITodo[];
   removeTodo: (id: number) => void;
-  showModal: () => void;
+  showModal: (count: number | null) => void;
 }
 
 export const ListTodo: FC<IListTodo> = ({ todos, removeTodo, showModal }) => {
@@ -20,12 +20,11 @@ export const ListTodo: FC<IListTodo> = ({ todos, removeTodo, showModal }) => {
               removeTodo={removeTodo}
               showModal={showModal}
               key={i}
-              count={i}
             />
           ))}
         </ListGroup>
       ) : (
-        <h1>sorry</h1>
+        <h1>isn't any task</h1>
       )}
     </>
   );
