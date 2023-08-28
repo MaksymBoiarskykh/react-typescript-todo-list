@@ -16,7 +16,6 @@ export const App = () => {
     fetchTodos();
   }, []);
 
-  // show modal
   const showModalWindow = () => {
     setShowModal(!showModal);
   };
