@@ -1,25 +1,35 @@
 import { FC } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import { ITodo } from "../types/ITodo";
-import { ItemTodo } from "./UI/ItemTodo";
+import { ItemTodo } from "./ItemTodo";
+import { useTypedSelector } from "../hooks/useTypedSelector";
+import { useActions } from "../hooks/useAction";
 
 interface IListTodo {
-  todos: ITodo[];
-  removeTodo: (id: number) => void;
-  showModal: (count: number | null) => void;
+  removeTodo?: (id: number) => void;
+  showModal: () => void;
 }
 
-export const ListTodo: FC<IListTodo> = ({ todos, removeTodo, showModal }) => {
+export const ListTodo: FC<IListTodo> = ({ showModal }) => {
+  const { todos } = useTypedSelector((state) => state.todosReducer);
+  const { updateTodos } = useActions();
+
+  // remove todo
+  const removeTodo = (id: number) => {
+    const value = todos.filter((todo: ITodo) => id !== todo.id);
+    updateTodos(value);
+  };
+
   return (
     <>
       {todos.length ? (
         <ListGroup>
-          {todos.map((todo, i) => (
+          {todos.map((todo: ITodo) => (
             <ItemTodo
               todo={todo}
               removeTodo={removeTodo}
               showModal={showModal}
-              key={i}
+              key={todo.id}
             />
           ))}
         </ListGroup>

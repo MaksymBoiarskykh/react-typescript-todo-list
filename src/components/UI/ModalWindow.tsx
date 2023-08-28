@@ -6,20 +6,20 @@ interface IModalWindow {
   children: JSX.Element;
   show: boolean;
   setShow: (count: number | null) => void;
-  text: string;
+  title: string;
 }
 
 export const ModalWindow: FC<IModalWindow> = ({
   children,
   show,
   setShow,
-  text,
+  title,
 }) => {
   return (
     <>
       <Modal show={show}>
         <Modal.Header>
-          <Modal.Title>{text}</Modal.Title>
+          <Modal.Title>{title}</Modal.Title>
           <CloseButton onClick={() => setShow(null)} />
         </Modal.Header>
         <Modal.Body>{children}</Modal.Body>

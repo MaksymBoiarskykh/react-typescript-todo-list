@@ -2,27 +2,33 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { ITodo } from "../types/ITodo";
 import { FC, MouseEvent, useRef } from "react";
+import { useActions } from "../hooks/useAction";
+import { useTypedSelector } from "../hooks/useTypedSelector";
+import { modificateTodo } from "../utils/modificateTodo";
 
 interface IChangeTodo {
-  modificateList: (task: ITodo) => void;
   showModal?: (count: number | null) => void;
-  count: number;
 }
 
-export const ModificateTodos: FC<IChangeTodo> = ({
-  modificateList,
-  count,
-  showModal,
-}) => {
+export const ModificateTodos: FC<IChangeTodo> = ({ showModal }) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const { todos, selectedTodo } = useTypedSelector(
+    (state) => state.todosReducer
+  );
+  const { updateTodos, selectTodo } = useActions();
 
   const createTodo = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const task: ITodo = {
-      title: inputRef.current?.value || "unknown",
-      id: count + 1,
+      title: inputRef.current?.value || "",
+      id: selectedTodo || todos.length + 1,
+      completed: false,
     };
-    modificateList(task);
+
+    const newTodos = modificateTodo(todos, task, selectedTodo);
+
+    updateTodos(newTodos);
+    selectTodo(null);
     if (showModal) showModal(null);
   };
 
