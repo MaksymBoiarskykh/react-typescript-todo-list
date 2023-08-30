@@ -2,10 +2,15 @@ import { FC } from "react";
 import CloseButton from "react-bootstrap/CloseButton";
 import Modal from "react-bootstrap/Modal";
 
+interface IShow {
+  item: string;
+  value: boolean;
+}
+
 interface IModalWindow {
   children: JSX.Element;
-  show: boolean;
-  setShow: (count: number | null) => void;
+  show: IShow;
+  setShow: (item: string) => void;
   title: string;
 }
 
@@ -17,10 +22,10 @@ export const ModalWindow: FC<IModalWindow> = ({
 }) => {
   return (
     <>
-      <Modal show={show}>
+      <Modal show={show.value}>
         <Modal.Header>
           <Modal.Title>{title}</Modal.Title>
-          <CloseButton onClick={() => setShow(null)} />
+          <CloseButton onClick={() => setShow(show.item)} />
         </Modal.Header>
         <Modal.Body>{children}</Modal.Body>
       </Modal>

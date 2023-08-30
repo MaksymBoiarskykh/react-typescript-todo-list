@@ -1,16 +1,18 @@
+import { FC, MouseEvent, ReactNode, useRef } from "react";
+import { useActions } from "../hooks/useAction";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { ITodo } from "../types/ITodo";
-import { FC, MouseEvent, useRef } from "react";
-import { useActions } from "../hooks/useAction";
-import { useTypedSelector } from "../hooks/useTypedSelector";
 import { modificateTodo } from "../utils/modificateTodo";
+import { ISetModal } from "../types/IModal";
 
 interface IChangeTodo {
-  showModal?: (count: number | null) => void;
+  showModal?: ISetModal;
+  components?: ReactNode[];
 }
 
-export const ModificateTodos: FC<IChangeTodo> = ({ showModal }) => {
+export const ModificateTodos: FC<IChangeTodo> = ({ showModal, components }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { todos, selectedTodo } = useTypedSelector(
     (state) => state.todosReducer
@@ -29,13 +31,19 @@ export const ModificateTodos: FC<IChangeTodo> = ({ showModal }) => {
 
     updateTodos(newTodos);
     selectTodo(null);
-    if (showModal) showModal(null);
+    if (showModal) showModal("modificate");
   };
+  const changeTodos = () => {};
 
   return (
-    <Form className="d-flex my-2">
-      <Form.Control placeholder="print new taks" ref={inputRef} />
-      <Button className="ms-1 w-25 text-bg-primary" onClick={createTodo}>
+    <Form className="d-md-flex my-2">
+      {components && components[0]}
+      <Form.Control
+        placeholder="print new taks"
+        ref={inputRef}
+        className="mb-2 mb-md-0 mx-md-2"
+      />
+      <Button className=" col-12 col-md-3 text-bg-primary" onClick={createTodo}>
         add task
       </Button>
     </Form>

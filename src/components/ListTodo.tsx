@@ -4,13 +4,17 @@ import { ITodo } from "../types/ITodo";
 import { ItemTodo } from "./ItemTodo";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { useActions } from "../hooks/useAction";
+import { ISetModal } from "../types/IModal";
+import { IFilterState } from "../types/IFilter";
+import { useFiltering } from "../hooks/useFiltering";
 
 interface IListTodo {
   removeTodo?: (id: number) => void;
-  showModal: () => void;
+  showModal: ISetModal;
+  filter: IFilterState;
 }
 
-export const ListTodo: FC<IListTodo> = ({ showModal }) => {
+export const ListTodo: FC<IListTodo> = ({ showModal, filter }) => {
   const { todos } = useTypedSelector((state) => state.todosReducer);
   const { updateTodos } = useActions();
 
@@ -20,14 +24,17 @@ export const ListTodo: FC<IListTodo> = ({ showModal }) => {
     updateTodos(value);
   };
 
+  const filteringTodos = useFiltering(todos, filter);
+
   return (
     <>
-      {todos.length ? (
+      {filteringTodos.length ? (
         <ListGroup>
-          {todos.map((todo: ITodo) => (
+          {filteringTodos.map((todo: ITodo, index) => (
             <ItemTodo
               todo={todo}
               removeTodo={removeTodo}
+              count={index}
               showModal={showModal}
               key={todo.id}
             />
