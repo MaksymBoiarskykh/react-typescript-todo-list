@@ -7,7 +7,6 @@ import { useActions } from "./hooks/useAction";
 import { ChangeTodos } from "./components/ChangeTodos";
 import { IModal } from "./types/IModal";
 import { IFilterState } from "./types/IFilter";
-import { isConstructorDeclaration } from "typescript";
 
 export const App = () => {
   const { fetchTodos } = useActions();

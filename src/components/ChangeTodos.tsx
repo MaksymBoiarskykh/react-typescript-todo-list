@@ -36,7 +36,11 @@ export const ChangeTodos: FC<IChangeTodos> = ({
         setShow={сhangeModal}
         title="select conditions"
       >
-        <FilteringTodos params={paramsFiltering} setFilter={setFilter} />
+        <FilteringTodos
+          params={paramsFiltering}
+          setFilter={setFilter}
+          сhangeModal={сhangeModal}
+        />
       </ModalWindow>
     </>
   );

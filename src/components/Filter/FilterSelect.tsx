@@ -1,10 +1,6 @@
 import { ChangeEvent, FC } from "react";
 import Form from "react-bootstrap/Form";
-import {
-  IFilterState,
-  IOptionSelect,
-  IParamsFiltering,
-} from "../../types/IFilter";
+import { IOptionSelect, IParamsFiltering } from "../../types/IFilter";
 
 interface IFilterSelect {
   param: string;
