@@ -18,8 +18,6 @@ export const App = () => {
     modificate: false,
   });
 
-  console.log(filter);
-
   useEffect(() => {
     fetchTodos();
   }, []);
