@@ -36,12 +36,14 @@ export const ModificateTodos: FC<IChangeTodo> = ({ showModal, components }) => {
 
   return (
     <Form className="d-md-flex my-2">
-      {components && components[0]}
-      <Form.Control
-        placeholder="print new taks"
-        ref={inputRef}
-        className="mb-2 mb-md-0 mx-md-2"
-      />
+      <div className="flex-grow-1 d-flex mb-2 mb-md-0">
+        {components && components[0]}
+        <Form.Control
+          placeholder="print new taks"
+          className=" mx-2"
+          ref={inputRef}
+        />
+      </div>
       <Button className=" col-12 col-md-3 text-bg-primary" onClick={createTodo}>
         add task
       </Button>

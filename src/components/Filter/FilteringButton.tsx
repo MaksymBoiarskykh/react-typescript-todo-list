@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, MouseEvent } from "react";
 import Button from "react-bootstrap/Button";
 import { BiFilter } from "react-icons/bi";
 import { ISetModal } from "../../types/IModal";
@@ -8,7 +8,7 @@ interface IFilteringButton {
 }
 
 export const FilteringButton: FC<IFilteringButton> = ({ showModal }) => {
-  const showResult = (e: any) => {
+  const showResult = (e: MouseEvent<HTMLButtonElement>) => {
     showModal("filter");
     e.preventDefault();
   };

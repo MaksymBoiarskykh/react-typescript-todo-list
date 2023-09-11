@@ -14,6 +14,8 @@ export const App = () => {
     (state) => state.todosReducer
   );
 
+  console.log(todos);
+
   const [showModal, setShowModal] = useState<IModal>({
     filter: false,
     modificate: false,
