@@ -1,7 +1,8 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { todosReducer } from "./reducers/todos/todosReducer";
+import { filterReducer } from "./reducers/filter/filterReducer";
 
-const rootReducer = combineReducers({ todosReducer });
+const rootReducer = combineReducers({ todosReducer, filterReducer });
 
 export const setupStore = () => {
   return configureStore({

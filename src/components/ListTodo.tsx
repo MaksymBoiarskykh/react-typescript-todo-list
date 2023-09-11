@@ -1,24 +1,23 @@
 import { FC } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import { ITodo } from "../types/ITodo";
-import { ItemTodo } from "./ItemTodo";
-import { useTypedSelector } from "../hooks/useTypedSelector";
+import ItemTodo from "./ItemTodo";
 import { useActions } from "../hooks/useAction";
 import { ISetModal } from "../types/IModal";
-import { IFilterState } from "../types/IFilter";
 import { useFiltering } from "../hooks/useFiltering";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 
 interface IListTodo {
   removeTodo?: (id: number) => void;
   showModal: ISetModal;
-  filter: IFilterState;
+  todos: ITodo[];
 }
 
-export const ListTodo: FC<IListTodo> = ({ showModal, filter }) => {
-  const { todos } = useTypedSelector((state) => state.todosReducer);
+const ListTodo: FC<IListTodo> = ({ todos, showModal }) => {
+  const filter = useTypedSelector((state) => state.filterReducer);
+
   const { updateTodos } = useActions();
 
-  // remove todo
   const removeTodo = (id: number) => {
     const value = todos.filter((todo: ITodo) => id !== todo.id);
     updateTodos(value);
@@ -46,3 +45,5 @@ export const ListTodo: FC<IListTodo> = ({ showModal, filter }) => {
     </>
   );
 };
+
+export default ListTodo;

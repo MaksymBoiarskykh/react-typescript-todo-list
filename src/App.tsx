@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
-import { ListTodo } from "./components/ListTodo";
+import ListTodo from "./components/ListTodo";
 import Spinner from "react-bootstrap/Spinner";
 import Container from "react-bootstrap/Container";
 import { useTypedSelector } from "./hooks/useTypedSelector";
 import { useActions } from "./hooks/useAction";
 import { ChangeTodos } from "./components/ChangeTodos";
 import { IModal } from "./types/IModal";
-import { IFilterState } from "./types/IFilter";
 
 export const App = () => {
   const { fetchTodos } = useActions();
-  const { isLoading, error } = useTypedSelector((state) => state.todosReducer);
-  const [filter, setFilter] = useState<IFilterState>({ completed: "" });
+
+  const { todos, isLoading, error } = useTypedSelector(
+    (state) => state.todosReducer
+  );
+
   const [showModal, setShowModal] = useState<IModal>({
     filter: false,
     modificate: false,
@@ -20,10 +22,6 @@ export const App = () => {
   useEffect(() => {
     fetchTodos();
   }, []);
-
-  const addFilter = (name: string, value: string) => {
-    setFilter({ ...filter, [name]: value });
-  };
 
   const showModalWindow = (item: string) => {
     setShowModal({ ...showModal, [item]: !showModal[item] });
@@ -35,15 +33,11 @@ export const App = () => {
 
   return (
     <Container fluid className="mt-3 text-center">
-      <ChangeTodos
-        сhangeModal={showModalWindow}
-        modal={showModal}
-        setFilter={addFilter}
-      />
+      <ChangeTodos сhangeModal={showModalWindow} modal={showModal} />
       {isLoading ? (
         <Spinner animation="border" variant="dark" />
       ) : (
-        <ListTodo showModal={showModalWindow} filter={filter} />
+        <ListTodo todos={todos} showModal={showModalWindow} />
       )}
     </Container>
   );

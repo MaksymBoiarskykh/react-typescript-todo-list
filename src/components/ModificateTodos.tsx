@@ -33,7 +33,6 @@ export const ModificateTodos: FC<IChangeTodo> = ({ showModal, components }) => {
     selectTodo(null);
     if (showModal) showModal("modificate");
   };
-  const changeTodos = () => {};
 
   return (
     <Form className="d-md-flex my-2">

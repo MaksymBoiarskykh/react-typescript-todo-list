@@ -5,19 +5,13 @@ import { ModalWindow } from "./UI/ModalWindow";
 import { ISetModal, IModal } from "../types/IModal";
 import { FilteringTodos } from "./Filter/FilteringTodos";
 import { paramsFiltering } from "./Filter/mockParams";
-import { IFilterState } from "../types/IFilter";
 
 interface IChangeTodos {
   сhangeModal: ISetModal;
   modal: IModal;
-  setFilter: (name: string, value: string) => void;
 }
 
-export const ChangeTodos: FC<IChangeTodos> = ({
-  сhangeModal,
-  modal,
-  setFilter,
-}) => {
+export const ChangeTodos: FC<IChangeTodos> = ({ сhangeModal, modal }) => {
   return (
     <>
       <ModalWindow
@@ -36,11 +30,7 @@ export const ChangeTodos: FC<IChangeTodos> = ({
         setShow={сhangeModal}
         title="select conditions"
       >
-        <FilteringTodos
-          params={paramsFiltering}
-          setFilter={setFilter}
-          сhangeModal={сhangeModal}
-        />
+        <FilteringTodos params={paramsFiltering} сhangeModal={сhangeModal} />
       </ModalWindow>
     </>
   );

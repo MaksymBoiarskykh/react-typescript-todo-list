@@ -13,12 +13,7 @@ interface IListItem {
   count: number;
 }
 
-export const ItemTodo: FC<IListItem> = ({
-  todo,
-  removeTodo,
-  showModal,
-  count,
-}) => {
+const ItemTodo: FC<IListItem> = ({ todo, removeTodo, showModal, count }) => {
   const { todos } = useTypedSelector((state) => state.todosReducer);
   const { updateTodos } = useActions();
   const { selectTodo } = useActions();
@@ -71,3 +66,5 @@ export const ItemTodo: FC<IListItem> = ({
     </ListGroup.Item>
   );
 };
+
+export default ItemTodo;
